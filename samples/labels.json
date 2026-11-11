@@ -1,0 +1,305 @@
+{
+  "sample_count": 50,
+  "labels": [
+    {
+      "file": "svc_0000.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": false
+    },
+    {
+      "file": "svc_0001.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0002.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0003.py",
+      "line": 13,
+      "sink": "path",
+      "vuln": false
+    },
+    {
+      "file": "svc_0004.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0005.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0006.py",
+      "line": 11,
+      "sink": "ssrf",
+      "vuln": false
+    },
+    {
+      "file": "svc_0007.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0008.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0009.py",
+      "line": 11,
+      "sink": "cmdi",
+      "vuln": false
+    },
+    {
+      "file": "svc_0010.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0011.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0012.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": false
+    },
+    {
+      "file": "svc_0013.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0014.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0015.py",
+      "line": 13,
+      "sink": "path",
+      "vuln": false
+    },
+    {
+      "file": "svc_0016.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0017.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0018.py",
+      "line": 11,
+      "sink": "ssrf",
+      "vuln": false
+    },
+    {
+      "file": "svc_0019.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0020.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0021.py",
+      "line": 11,
+      "sink": "cmdi",
+      "vuln": false
+    },
+    {
+      "file": "svc_0022.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0023.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0024.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": false
+    },
+    {
+      "file": "svc_0025.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0026.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0027.py",
+      "line": 13,
+      "sink": "path",
+      "vuln": false
+    },
+    {
+      "file": "svc_0028.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0029.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0030.py",
+      "line": 11,
+      "sink": "ssrf",
+      "vuln": false
+    },
+    {
+      "file": "svc_0031.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0032.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0033.py",
+      "line": 11,
+      "sink": "cmdi",
+      "vuln": false
+    },
+    {
+      "file": "svc_0034.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0035.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0036.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": false
+    },
+    {
+      "file": "svc_0037.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0038.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0039.py",
+      "line": 13,
+      "sink": "path",
+      "vuln": false
+    },
+    {
+      "file": "svc_0040.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0041.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    },
+    {
+      "file": "svc_0042.py",
+      "line": 11,
+      "sink": "ssrf",
+      "vuln": false
+    },
+    {
+      "file": "svc_0043.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0044.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": true
+    },
+    {
+      "file": "svc_0045.py",
+      "line": 11,
+      "sink": "cmdi",
+      "vuln": false
+    },
+    {
+      "file": "svc_0046.py",
+      "line": 9,
+      "sink": "ssrf",
+      "vuln": true
+    },
+    {
+      "file": "svc_0047.py",
+      "line": 10,
+      "sink": "path",
+      "vuln": true
+    },
+    {
+      "file": "svc_0048.py",
+      "line": 10,
+      "sink": "sqli",
+      "vuln": false
+    },
+    {
+      "file": "svc_0049.py",
+      "line": 10,
+      "sink": "cmdi",
+      "vuln": true
+    }
+  ]
+}
