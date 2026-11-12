@@ -1,0 +1,5 @@
+# 本机已预装（Python 3.12.1 / Windows 11）。基线只用标准库；改造时可直接用这些包。
+tree-sitter==0.26.1
+tree-sitter-language-pack==1.25.0
+sarif-om==1.0.4
+pytest==8.4.2
