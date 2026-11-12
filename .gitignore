@@ -2,3 +2,7 @@ target/
 out/
 __pycache__/
 *.pyc
+tmp_smoke/
+tmp_cross/
+tmp_ci/
+.pytest_cache/

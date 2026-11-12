@@ -1,73 +1,20 @@
-"""静态扫描（基线：只有正则匹配，没有数据流分析）。
+"""静态污点分析器入口（tree-sitter；替代旧的正则基线）。
 
-现在能做的：
-  - 逐文件扫关键字（execute / subprocess / requests.get / open），把命中行报出来；
-  - 输出 out/report.json。
+能力：
+  - 污点源：request.args/form/json/path 参数等显式源 + 服务层函数形参隐式源；
+  - 传播：流敏感过程内 + 上下文不敏感跨函数/跨文件摘要不动点
+    （字段、下标、集合、返回值均建模，见 taint/engine.py）；
+  - sanitizer 白名单：参数化查询、realpath 前缀校验、isalnum/正则白名单、
+    主机白名单、shlex.quote/secure_filename 等（见 taint/rules.py）；
+  - 输出 JSON + SARIF 2.1.0，支持 CI 基线，仅对新增违规阻断；
+  - 增量：基于文件哈希的解析/摘要缓存，只重算变更文件。
 
-现在做不到（正是要补的）：
-  - 没有污点源（source）概念，参数是不是用户输入完全不看；
-  - 没有跨函数/跨文件传播；
-  - 没有 sanitizer 白名单，安全实现同样会被报（误报高）；
-  - 输出不是 SARIF，不能被 CI 消费；
-  - 没有增量扫描。
-
-    python scan.py --repo target --out out/report.json
+    python scan.py --repo target --out out/report.json --sarif out/report.sarif
+    python scan.py --repo target --baseline out/baseline.json      # CI 模式
+    python scan.py --repo target --update-baseline --baseline out/baseline.json
 """
 
-import argparse
-import json
-import os
-import re
-
-PATTERNS = {
-    "sqli": re.compile(r"execute\(.*%"),
-    "cmdi": re.compile(r"subprocess\.run\(.*shell=True"),
-    "ssrf": re.compile(r"requests\.get\("),
-    "path": re.compile(r"open\("),
-}
-
-
-def scan_file(path):
-    findings = []
-    with open(path, encoding="utf-8", errors="replace") as fh:
-        for lineno, line in enumerate(fh, start=1):
-            for sink, pat in PATTERNS.items():
-                if pat.search(line):
-                    findings.append({
-                        "file": path,
-                        "line": lineno,
-                        "sink": sink,
-                        "evidence": line.strip()[:200],
-                    })
-                    break
-    return findings
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--repo", default="target")
-    ap.add_argument("--out", default="out/report.json")
-    args = ap.parse_args()
-
-    os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
-    all_findings = []
-    files = 0
-    for root, _, names in os.walk(args.repo):
-        for n in names:
-            if n.endswith(".py"):
-                files += 1
-                all_findings.extend(scan_file(os.path.join(root, n)))
-
-    report = {
-        "tool": "naive-regex-scan",
-        "scanned_files": files,
-        "finding_count": len(all_findings),
-        "findings": all_findings,
-    }
-    with open(args.out, "w", encoding="utf-8") as fh:
-        json.dump(report, fh, ensure_ascii=False, indent=2)
-    print(f"scanned {files} files, {len(all_findings)} findings -> {args.out}")
-
+from taint.scanner import main
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

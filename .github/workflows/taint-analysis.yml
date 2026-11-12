@@ -1,0 +1,60 @@
+name: taint-analysis
+
+# 静态污点分析门禁：
+#   1) 全量扫描并上传 SARIF 到 code scanning；
+#   2) 用基线文件只阻断"新增"违规（退出码 2 失败本 job）；
+#   3) PR 上自动做增量扫描验证 < 15s 预算。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  taint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser deps (tree-sitter only)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Full taint scan (SARIF + JSON)
+        run: >
+          python scan.py
+          --repo .
+          --out out/report.json
+          --sarif out/report.sarif
+          --cache out/.taint-cache.json
+          --baseline security/taint-baseline.json
+
+      - name: Upload SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: out/report.sarif
+          category: taint-analyzer
+        # 注意：这里仅上传 SARIF 做可视化；真正的阻断来自上一步的退出码 2。
+        # 分析器本身不依赖 CodeQL 规则，只用 tree-sitter。
+
+      - name: Fail on new violations
+        run: |
+          echo "scan exit code was checked in the scan step; job fails if it returned 2"
+
+      - name: Incremental scan timing check (PR)
+        if: github.event_name == 'pull_request'
+        run: |
+          # 第二次运行命中缓存，断言增量扫描在 15 秒预算内
+          start=$(date +%s)
+          python scan.py --repo . --out out/report-inc.json \
+            --sarif out/report-inc.sarif --cache out/.taint-cache.json \
+            --baseline security/taint-baseline.json || true
+          end=$(date +%s)
+          echo "incremental scan took $((end-start))s (budget 15s)"
+          test $((end-start)) -le 15
